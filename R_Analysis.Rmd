@@ -1,0 +1,311 @@
+---
+title: "World Hunger Fact"
+author:
+- Jonathan William Gunawan (2702251794)
+- Vincentius Jonathan Tanujaya (2702259632)
+- I Made Bagus Narendra (2702268561)
+- Nixon Alexander (2702248420)
+date: "2024-06-13"
+output:
+  word_document: default
+  html_document: default
+  pdf_document: default
+---
+
+
+## Introduction 
+
+##### World Hunger
+Apa itu *Hunger*? *Hunger* didefinisikan oleh Perserikatan Bangsa-Bangsa sebagai sebuah kondisi ketika masyarakat mengalami kelangkaan pangan yang parah, sehingga mereka tidak makan sepanjang hari yang bisa disebabkan beberapa hal seperti kekurangan uang, akses terhadap makanan, atau sumber daya lainnya. 
+
+Dampak dari kelaparan ini sangat menghancurkan dan membahayakan bagi dunia, salah satu contohnya adalah penghambatan pada perkembangan pada anak - anak karena kekurangan asupan kalori, protein, vitamin, dan mineral. Alhasil, hal ini berdampak negatif terhadap kesehatan, pendidikan, pembangunan ekonomi dan sosial seluruh masyarakat diseluruh dunia
+
+##### Global Hunger Index
+Untuk mengukur tingkat kelaparan dan meningkatkan kesadaran tentang kelaparan global, Concern Worldwide of Ireland and Welthungerhilfe membuat Global Hunger Index. Global hunger Index ini diitung dengan 4 parameter berikut : 
+
++ *Undernourishment* 
++ *Child Stunting*
++ *Child Wasting* 
++ *Child Mortality* 
+
+##### Pertanyaan 
+
+1. Apakah ada perubahan tren dalam tingkat kelaparan di dunia?
+2. Negara apa aja yang tingkat kelaparannya yang sangat memprihatinkan?
+
+##### Tujuan Kegiatan
+Tujuan dari laporan ini adalah untuk meningkatkan kesadaran warga global tentang bahayanya dampak kelaparan terhadap dunia serta mengidentifikasi apakah ada perubahan tren dalam tingkat kelaparan di dunia. 
+
+Laporan ini sangat penting dan relevan karena kelaparan dan malnutrisi masih menjadi masalah utama yang sangat berpengaruh terhadap dunia, dengan menyediakan data yang akurat, kami berharap bahwa hasil dari analisis kami membantu dalam mencapai tujuan dari SDGs nomor 2 yaitu "Zero Hunger" dan meningkatkan kesadaran dari seluruh masyarakat di dunia tentang kelaparan di dunia. 
+
+##### Analysis Overview
+
+Di analisis kami, kami menghitung tingkat kelaparan yang dimiliki oleh beberapa negara dengan 3 parameter yaitu : 
+
+1. *Child Stunting*
+2. *Child Underweight*
+3. *Child Wasting*
+
+Kami menjumlah 3 parameter tersebut dan membaginya dengan 3 untuk menemukan rata - rata tingkat kelaparan di beberapa negara. Namun penilaian tentang bahayanya tingkat kelaparan sebuah negara, kami menggunakan penilaian angka GHI terhadap bahayanya tingkat kelaparan sebuah negara : 
+
++ Rendah = kurang dari atau sama dengan 9.9
++ Cukup gawat = 10.0 - 19.9
++ Gawat = 20.0 - 34.9
++ Memprihatinkan = 35.0 - 49.9
++ Sangat memprihatinkan = lebih dari atau sama dengan 50.0
+
+Selain itu, kami juga mengecek apakah ada sebuah tren atau perubahan tren dalam distribusi indeks kelaparan dari tahun 2000, 2006, 2012, dan 2021 dengan menggunakan density plot. 
+
+Data yang digunakan untuk mengumpulkan skor ini berasal dari kaggle. Resource : 
+[Kaggle](https://www.kaggle.com/datasets/whenamancodes/the-global-hunger-index)
+
+##### Personal Statement
+Laporan ini ditujukan kepada orang yang mempunyai minat dalam memberantas kasus kelaparan di dunia seperti organisasi non-profit, masyarakat umum, investor sosial yang berinvestasi dalam proyek yang bertujuan untuk mengatasi kelaparan, media yang meliput masalah global dan kemanusiaan, lalu peneliti yang mempelajari tentang kelaparan atau gizi. Meskipun analisis ini ada beberapa kelemahan seperti: 
+
+1. Tidak dapat menjelaskan penyebab dari kelaparan di negara - negara yang tingkat kelaparannya tinggi, 
+2. Keakuratan yang tergantung pada data yang terbatas, 
+3. Indikator yang terbatas,
+4. Interpretasi yang mungkin sulit dipahami,
+5. Bahasa yang digunakan kurang sopan atau menyinggung pembaca
+
+Kami berharap bahwa laporan ini dapat memberikan manfaat kepada pembaca.
+
+Laporan ini sangat bermakna bagi saya secara pribadi karena dalam membuat laporan ini saya menyadari keterbatasan saya serta menyadari bahwa dampak dari kelaparan itu sangat menghancurkan dan merusak kehidupan anak-anak kecil yang seharusnya dapat berkembang dan hidup dengan baik. Dengan adanya laporan ini, saya berharap bahwa laporan ini dapat meningkatkan kesadaran pembaca dan masyarakat umum tentang kelaparan.
+
+## Data Description  
+
+1. Entity : Kategoris variabel tentang nama - nama negaran
+2. Code : Kategorisvariabel tentang nama singkatan dari sebuah negara
+3. Year : Kategoris variabel tentang taun
+4. Prevalence underweight under 5 : numerik variabel yang menunjukkan proporsi anak yang berumur dibawah 5 tahun yang menderita underweight
+5. Prevalence stunting under 5 : numerik variabel yang menunjukkan proporsi anak yang berumur dibawah 5 tahun yang menderita stunting  
+6. Prevalence wasting weight under 5 : numerik variabel yang menunjukkan proporsi anak yang berumur dibawah 5 tahun yang menderita wasting
+7. Hunger index : numerik variabel yang menunjukkna indeks kelaparan
+
+Dataset tersebut kita dapatkan dari : 
+[Kaggle](https://www.kaggle.com/datasets/whenamancodes/the-global-hunger-index)
+
+```{r library, results='hide', message=FALSE}
+knitr::opts_chunk$set(echo = TRUE, warning=FALSE)
+```
+
+
+## Data Preprocessing
+
+#### Importing Library
+```{r}
+library(ggplot2) #Buat visualisasi
+library(tidyverse) #Untuk manipulasi data
+source("explorationFunction.R") #Untuk function FindOutliers()
+library(knitr) #Untuk membuat table
+```
+
+#### Importing data
+```{r}
+global_hunger_index <- read.csv("/Users/jowillg/smt2/latian rstudio/archive/global-hunger-index.csv")
+child_under <- read.csv("/Users/jowillg/smt2/latian rstudio/archive/share-of-children-underweight.csv")
+child_under_wasting <- read.csv("/Users/jowillg/smt2/latian rstudio/archive/share-of-children-with-a-weight-too-low-for-their-height-wasting.csv")
+child_stunting <- read.csv("/Users/jowillg/smt2/latian rstudio/archive/share-of-children-younger-than-5-who-suffer-from-stunting.csv")
+```
+
+```{r}
+merge_data <- merge(child_under, child_stunting, all=T)
+merge_data <- merge(merge_data, child_under_wasting, all=T)
+merge_data <- merge(merge_data, global_hunger_index, all =T)
+colnames(merge_data)[4] = "Prevelance underweight under 5"
+colnames(merge_data)[5] = "Prevalence stunting under 5"
+colnames(merge_data)[6] = "Prevalence wasting weight under 5"
+colnames(merge_data)[7] = "Hunger Indexes"
+str(merge_data)
+summary(merge_data)
+```
+##### Explanation 
+
+Menggabungkan semua dataset terlebih dahulu, pengecekan tipe variabel, dan jumlah NA value yang dimiliki masing - masing
+
+```{r}
+merge_data <- subset(merge_data, select = -c(X411773.annotations))
+```
+##### Explanation 
+
+Penghapusan kolom yang tidak dibutuhkan
+
+
+```{r}
+clean_data <- merge_data[rowSums(is.na(merge_data))<=2, ]
+kable(head(clean_data))
+```
+
+##### Explanation
+
+Penghapusan baris yang memiliki NA value lebih dari 2 untuk mengatasi banyaknya NA value yang dimiliki oleh variable "Hunger index"
+
+```{r}
+str(clean_data)
+summary(clean_data)
+```
+
+##### Explanation
+
+Pengecekan kembali untuk melihat berapa NA value yang dimiliki oleh "Hunger Index", dan dapat dilihat bahwa NA value yang dimiliki oleh "Hunger Indexes" masih terlihat banyak dengan 836 NA value dengan jumlah data hanya 949
+
+```{r}
+clean_data <- subset(clean_data, select = -c(`Hunger Indexes`))
+summary(clean_data)
+```
+
+##### Explanation
+
+Untuk mengatasi hal ini, akhirnya kami menghapus kolom dari "Hunger Indexes" karena jika dibiarkan maka akan merusak kolom yang lainnya pada saat data exploration
+
+```{r}
+summary(clean_data)
+
+for (i in 4:6){
+  mean_2 <- mean(unlist(clean_data[i]), na.rm = T)
+  clean_data[[i]] <- replace(clean_data[[i]], is.na(clean_data[[i]]), mean_2)
+}
+
+summary(clean_data)
+```
+##### Explanation
+
+Berdasarkan data diatas, jumlah NA value masing masing variabel dibawah 5% dari total keseluruhan data
+yang sudah dibersihkan sehingga cukup baik untuk menggantikan NA value dengan rata - rata dari
+per kolomnya
+
+```{r}
+data_rate <- clean_data %>% mutate(clean_data, hunger_rate = (`Prevelance underweight under 5` + `Prevalence stunting under 5` + `Prevalence wasting weight under 5`) / 3)
+
+```
+
+##### Explanation
+
+Karena sebelumnya variabel "Hunger Indexes" dihapus maka kami menambahkan sebuah variabel yang dapat bertindak sebagai "Hunger Indexes" untuk menentukan tingkat kelaparan masing - masing negara dengan menambahkan variabel "Prevelance underweight under 5", "Prevalence stunting under 5", dan "Prevalence wasting weight under 5" kemudian membaginya dengan 3 sebagai total variabel yang dijumlah agar dapat menentukan proporsi tingkat rata - rata kelaparan di berbagai negara
+
+```{r}
+summary(data_rate)
+```
+
+##### Explanation
+
+Pengecekan kembali untuk melihat distribusi tiap variabel, bisa dilihat bahwa variabel "Prevalence stunting under 5" memiliki nilai median dan mean yang sama sehingga kedua variabel tersebut dapat dikatakan terdistribusi normal (zero skewness) sedangkan variabel lainnya seperti "Prevalence 
+wasting weight under 5" dan "Prevelance underweight under 5" memiliki nilai mean yang lebih besar daripada mediannya sehingga dapat dikatakan berbentuk right skewed
+
+```{r}
+boxplot(data_rate$`Prevelance underweight under 5`)
+boxplot(data_rate$`Prevalence stunting under 5`)
+boxplot(data_rate$`Prevalence wasting weight under 5`)
+boxplot(data_rate$hunger_rate)
+```
+
+##### Explanation
+
+Untuk lebih yakin, kami check dengan boxplot agar dapat terlihat variabel mana yang terdistribusi normal,  dan bisa dilihat bahwa hanya variabel "Prevalence stunting under 5" yang tidak mempunyai outlier 
+
+
+```{r}
+FindOutliers(data_rate$`Prevelance underweight under 5`)
+FindOutliers(data_rate$`Prevalence wasting weight under 5`)
+FindOutliers(data_rate$hunger_rate)
+```
+
+##### Explanation
+
+Berdasarkan data diatas, jumlah outlier masing masing variabel dibawah 5% dari total keseluruhan data
+yang sudah dibersihkan sehingga mengindikasikan bahwa data cukup baik
+
+
+## Data Exploration
+```{r}
+desc_data <- data_rate %>% group_by(Entity) %>% summarize(mean_hungerRate= mean(hunger_rate)) %>% arrange(desc(mean_hungerRate)) #Untuk melihat negara apa yang paling besar tingkat kelaparannya
+kable(head(desc_data))
+
+library(maps)
+world_map <- map_data("world")
+world_map <- subset(world_map, region != "Antartica")
+
+ggplot(desc_data) + 
+  geom_map(dat = world_map, map = world_map, aes(map_id = region),
+    fill = "white", color = "#7f7f7f", size = 0.25
+  ) +
+  geom_map(map = world_map, aes(map_id = Entity, fill = mean_hungerRate), size = 0.25) +
+  scale_fill_gradient(low = "#fff7bc", high = "#cc4c02", name = "Hunger Rate") +
+  expand_limits(x = world_map$long, y = world_map$lat)
+
+```
+
+##### Explanation
+
+Dapat dilihat di grafik map bahwa terdapat perbedaan warna dimana disamping grafik terdapat indikasi bahwa jika warna semakin gelap atau semakin oranye maka tingkat kelaparan suatu negara maka akan semakin tinggi, berdasarkan pengamatan, bahwa tingkat kelaparan yang tergolong cukup gawat dan gawat bahkan memprihatinkan berkumpul di benua Asia dan Benua Africa yang dimana cuaca disana relatif sangat panas
+
+
+```{r}
+desc_data <- desc_data %>% mutate(toHighlight = ifelse(Entity == "Bangladesh", "yes", "no"))
+ten_data <- subset(desc_data[1:10,])
+ten_data$mean_hungerRate <- format(round(ten_data$mean_hungerRate, 2), nsmall = 2)
+ggplot(ten_data, aes(x = Entity, y = mean_hungerRate, fill = toHighlight)) +
+  geom_bar(stat = "identity") +
+  scale_fill_manual(values = c("yes" = "pink", "no" = "gray")) +
+  geom_text(aes(label=mean_hungerRate), vjust=0.5) + 
+  labs(x = "Entity", y = "Hunger Rate") + 
+  coord_flip()
+```
+
+##### Explanation
+
+Visualisasi diatas bertujuan untuk melihat 10 negara dengan tingkat kelaparan tertinggi, dapat dilihat bahwa hanya terdiri dari benua Asia dan Africa. Negara - negara benua Asia seperti Yemen, Timor, Pakistan, Nepal, India, Bangladesh sedangkan negara - negara di benua Africa adalah Niger, Madagascar, Eritrea, dan Burundi
+
+
+```{r}
+data2 <- as_tibble(clean_data)
+data2 <- data2 %>% group_by(Entity) %>% summarize_at(c("Prevelance underweight under 5", "Prevalence stunting under 5","Prevalence wasting weight under 5"), mean, na.rm = TRUE)
+
+ggplot(data2, aes(x = `Prevelance underweight under 5`, y = `Prevalence stunting under 5`)) +
+  geom_point(pch=21, color = "blue", fill = "gray", size = 3) +
+  labs(x = "Underweight", y = "Stunting", title = "Underweight and Stunting") + 
+  geom_smooth(method = "lm")
+```
+
+##### Explanation
+
+Berdasarkan visualisasi diatas, terdapat korelasi antara underweight dan stunting yang artinya
+dimana anak berumuran dibawah 5 ketika rata - rata prevalensi underweight nya semakin tinggi, 
+maka prevalensi rata - rata anak dibawah 5 tahun yang kekurangan gizi juga meningkat
+
+
+```{r}
+linier <- lm(data2$`Prevalence stunting under 5` ~ data2$`Prevelance underweight under 5`, data = data2)
+summary(linier)
+```
+
+##### Explanation
+
+Dari grafik linear regression sebelumnya ternyata terdapat korelasi antara variabel ***Prevalence stunting under 5*** sebagai variabel dependen dan ***Prevelance underweight under 5*** sebagai variabel independen, dari hasil summary menunjukkan bahwa nilai $R^2$ yang merupakan koefisien determinasi di angka **71,49%** dengan ini, kami juga mendapatkan nilai korelasi dengan akar dari koefisien determinasi dan hasilnya **84,5%**. Ini menunjukkan bahwa relasi antara ***Prevelance underweight under 5*** dan ***Prevalence stunting under 5*** sekuat **84,5%** dan mempunyai arah **positif**, lalu variabel ***Prevelance underweight under 5*** menjelaskan varians dari ***Prevalence stunting under 5*** sebesar **71,49%**.
+
+```{r}
+colnames(global_hunger_index)[4] = "Global Index"
+global_hunger_index$Year <- as.factor(global_hunger_index$Year)
+ggplot(global_hunger_index, aes(x = `Global Index`, fill = Year)) +
+  geom_density(alpha=0.4) +
+  labs(title = "Global Hunger Index Distributed by Year")
+```
+
+##### Explanation
+
+Dapat terlihat bahwa data yang paling menonjol ada pada tahun 2000, dimana hunger indexnya
+secara keseluruhan lebih besar dibandingkan yang lain
+
+## Conclusion
+
+Jadi, berdasarkan hasil dari laporan ini, kita dapat menjawab semua pertanyaan dimana dapat sebuah tren bahwa negara - negara yang berada di benua Asia dan Afrika yang memiliki kecenderungan terdiri dari negara - negara yang masih berkembang memiliki tingkat kelaparan yang jauh lebih tinggi daripada negara maju. Selain itu, berdasarkan hasil dari density plot, dapat dilihat bahwa semakin bertambahnya taun tingkat distribusi dari tingkat kelaparan semakin berkurang ini mengindikasikan bahwa semua proyek - proyek yang dilakukan untuk mencapai tujuan SDG no 2 "Zero Hunger" cukup efektif. 
+
+Kami harap dengan laporan ini, kami dapat memberikan gambaran tentang kelaparan global dan mendorong masyarakat global untuk melakukan tindakan yang diperlukan untuk mengatasi kelaparan di seluruh dunia. Selain itu, dapat memberikan sebuah wawasan kepada para investor atau sebuah organisasi non-profit dapat melakukan alokasi sumber daya yang lebih baik untuk mempercepat tercapainya "Zero Hunger". 
+
+
+
+## Reference 
+
++ https://www.rri.co.id/kupang/nasional/714100/kelaparan-krisis-serius-yang-menjadi-perhatian-dunia
++ https://byjus.com/free-ias-prep/global
++ https://www.worldvision.ca/stories/food/world-hunger-facts-how-to-help#What%20is%20world%20hunger
