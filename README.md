@@ -103,5 +103,5 @@ To replace the missing `Hunger Indexes`, we introduced a new variable called **`
 ### 🚀 How to Run
 1. Clone this repository:  
    ```bash
-   git clone https://github.com/your-username/world-hunger-analysis.git
+   git clone https://github.com/lynscrat/world-hunger-analysis.git
    cd world-hunger-analysis
