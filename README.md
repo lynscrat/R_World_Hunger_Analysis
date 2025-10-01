@@ -80,7 +80,7 @@ To replace the missing `Hunger Indexes`, we introduced a new variable called **`
 
 ---
 
-### 📈 Key Findings
+### 📊 Results & Key Findings
 - Hunger levels are **highest in Asia and Africa**, especially in developing nations.  
 - Over the years, the **distribution of hunger has decreased**, showing progress toward SDG #2.  
 - Strong correlation found between **underweight prevalence** and **stunting** in children (R² ≈ 0.71, correlation ≈ 84.5%).
