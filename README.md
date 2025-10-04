@@ -1,9 +1,9 @@
 # R_World_Hunger_Analysis
 A data analysis project on global hunger, exploring underweight, stunting, and wasting prevalence in children under 5 across different countries and years, with visualizations and regression analysis.
 
-# 🌍 World Hunger Analysis
+# World Hunger Analysis
 
-### 📌 Overview
+### Overview
 This project analyzes **global hunger trends** using datasets from Kaggle.  
 The main objective is to raise awareness about the impact of hunger worldwide and to evaluate whether there are significant changes in global hunger distribution across different years.
 
@@ -11,7 +11,7 @@ The analysis is aligned with **SDG Goal #2: Zero Hunger**, aiming to provide ins
 
 ---
 
-### 👥 Contributors
+### Contributors
 - Jonathan William Gunawan (2702251794)  
 - Vincentius Jonathan Tanujaya (2702259632)  
 - I Made Bagus Narendra (2702268561)  
@@ -19,7 +19,7 @@ The analysis is aligned with **SDG Goal #2: Zero Hunger**, aiming to provide ins
 
 ---
 
-### 🎯 Objectives
+### Objectives
 - Measure and visualize hunger levels across countries and time periods.  
 - Identify trends in global hunger distribution (2000–2021).  
 - Highlight the most affected countries.  
@@ -27,7 +27,7 @@ The analysis is aligned with **SDG Goal #2: Zero Hunger**, aiming to provide ins
 
 ---
 
-### 📊 Data Description
+### Data Description
 Datasets were sourced from **Kaggle** and merged into a single dataset containing:  
 - `Entity` : Country name  
 - `Code` : Country code  
@@ -37,11 +37,11 @@ Datasets were sourced from **Kaggle** and merged into a single dataset containin
 - `Prevalence wasting weight under 5` : % of wasted children under 5  
 - `Hunger Indexes` : Global Hunger Index (when available)
 
-📂 Resource: [Kaggle – Global Hunger Index Dataset](https://www.kaggle.com/datasets/whenamancodes/the-global-hunger-index)
+**Resource**: [Kaggle – Global Hunger Index Dataset](https://www.kaggle.com/datasets/whenamancodes/the-global-hunger-index)
 
 ---
 
-### 🔧 Methodology
+### Methodology
 #### 1. Data Preprocessing
 - Imported and merged multiple datasets.  
 - Removed irrelevant columns.  
@@ -60,11 +60,11 @@ To replace the missing `Hunger Indexes`, we introduced a new variable called **`
 ```
 
 ##### Why Hunger Rate?
-- ✅ **Replaces missing Hunger Indexes** → provides an alternative indicator.  
-- ✅ **More complete data** → underweight, stunting, and wasting had much fewer missing values.  
-- ✅ **Represents child malnutrition** → combines three key dimensions of undernutrition in children under 5.  
-- ✅ **Balances the analysis** → avoids bias from focusing on a single variable.  
-- ✅ **Acts as a proxy for Global Hunger Index** → enabling meaningful comparisons across countries and years.
+- **Replaces missing Hunger Indexes** → provides an alternative indicator.  
+- **More complete data** → underweight, stunting, and wasting had much fewer missing values.  
+- **Represents child malnutrition** → combines three key dimensions of undernutrition in children under 5.  
+- **Balances the analysis** → avoids bias from focusing on a single variable.  
+- **Acts as a proxy for Global Hunger Index** → enabling meaningful comparisons across countries and years.
 
 ---
 
@@ -87,20 +87,20 @@ To replace the missing `Hunger Indexes`, we introduced a new variable called **`
 
 ---
 
-### 🛠️ Library
+### Library
 - **R Language**  
 - Libraries: `ggplot2`, `tidyverse`, `maps`, `knitr`  
 
 ---
 
-### 📚 References
+### References
 - [World Hunger Facts – World Vision](https://www.worldvision.ca/stories/food/world-hunger-facts-how-to-help#What%20is%20world%20hunger)  
 - [Global Hunger Index – Byju’s](https://byjus.com/free-ias-prep/global)  
 - [RRI Indonesia – Kelaparan, Krisis Serius](https://www.rri.co.id/kupang/nasional/714100/kelaparan-krisis-serius-yang-menjadi-perhatian-dunia)  
 
 ---
 
-### 🚀 How to Run
+### How to Run
 1. Clone this repository:  
    ```bash
    git clone https://github.com/lynscrat/world-hunger-analysis.git
